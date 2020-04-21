@@ -27,6 +27,12 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def show
+		@user = User.find(params[:id])
+		@articles = @user.articles
+	end
+	
+
 end
 
 private
