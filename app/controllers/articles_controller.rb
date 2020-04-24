@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
 	
 	before_action :set_article, only: [:show, :edit, :update, :destroy]
+	before_action :require_user, except: [:index, :show]
+	before_action :require_same_user, only: [:edit, :update, :destroy]
 
 	def show
 		
@@ -54,5 +56,14 @@ class ArticlesController < ApplicationController
 	# This is to whitelist :title and :description
 	def article_params
 		params.require(:article).permit(:title, :description)
+	end
+
+	# This is to check that only a user who a particular article belongs
+	# to can edit update destroy that article
+	def require_same_user
+		if helpers.current_user != @article.user
+			flash[:danger] = "You can only edit or delete your own articles"
+			redirect_to root_path
+		end
 	end
 end
