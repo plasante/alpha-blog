@@ -19,6 +19,10 @@
                     <p class="card-text">
                         <%= pluralize(user.articles.count, "article") %>
                     </p>
+                    <% if logged_in? && current_user.admin? %>
+                        <%= link_to "Delete this user", user_path(user), class: "btn btn-outline-danger", method: :delete,
+                                data: { confirm: "Are you sure you want to delete the user and all its articles?"} %>
+                    <% end %>
                     <%= link_to 'View profile', user, class: "btn btn-outline-success" %>
                     <%= link_to 'Edit profile', edit_user_path(user), class: "btn btn-outline-info" %>
                 </div>
