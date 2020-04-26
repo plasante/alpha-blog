@@ -61,7 +61,8 @@ class ArticlesController < ApplicationController
 	# This is to check that only a user who a particular article belongs
 	# to can edit update destroy that article
 	def require_same_user
-		if helpers.current_user != @article.user
+		# if current_user is the article or an admin then proceed
+		if current_user != @article.user && !current_user.admin?
 			flash[:danger] = "You can only edit or delete your own articles"
 			redirect_to root_path
 		end
