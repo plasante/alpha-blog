@@ -9,7 +9,8 @@
 		<div class="col-8 mt-4">
 			<div class="card text-center shadow mb-5 bg-white rounded">
 			  <div class="card-body">
-			    <%= link_to "#{category.name}", category_path(category) %>
+			    <%= link_to "#{category.name}", category_path(category) %><br/>
+			    <small><%= pluralize(category.articles.count, "article") %></small>
 			  </div>
 			</div>
 		</div>

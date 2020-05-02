@@ -9,7 +9,12 @@
 			    <%= link_to gravatar_for(@article.user), user_path(@article.user) %>
 			  </div>
 			  <div class="card-body">
-			    <div class="card-text text-left"><%= simple_format(@article.description) %></div>
+			    <div class="card-text text-left">
+			    	<%= simple_format(@article.description) %>
+			    	<% if @article.categories.any? %>
+			    		<p>Categories: <%= render @article.categories %></p>
+			    	<% end %>
+			    </div>
 			    <% if logged_in? && (current_user == @article.user || current_user.admin?) %>
 				    <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-info" %>
 				    <%= link_to 'Delete', article_path(@article), method: :delete, class: "btn btn-outline-danger", data: { confirm: "Are you sure?"} %>
